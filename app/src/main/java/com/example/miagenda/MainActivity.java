@@ -33,6 +33,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     Button botonAgregar, botonBuscar;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.baseline_book_24);
+        setTitle("My Agenda");
 
         botonAgregar = findViewById(R.id.button2);
         botonAgregar.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class AdaptadorListaContacto extends BaseAdapter {
+    class AdaptadorListaContacto extends BaseAdapter{
         public JSONArray arregloDatos;
 
         @Override
@@ -173,4 +177,5 @@ public class MainActivity extends AppCompatActivity {
             return v;
         }
     }
+
 }

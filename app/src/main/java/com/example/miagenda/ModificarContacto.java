@@ -176,10 +176,8 @@ public class ModificarContacto extends AppCompatActivity {
     }
 
     private void verContacto(){
-
         nombre.setText(nombre_contacto);
         telefono.setText(telefono_contacto);
-
     }
 
 }
