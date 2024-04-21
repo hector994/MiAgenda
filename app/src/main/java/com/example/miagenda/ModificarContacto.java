@@ -1,5 +1,6 @@
 package com.example.miagenda;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
@@ -78,8 +80,9 @@ public class ModificarContacto extends AppCompatActivity {
 
     private void modificar(){
         try{
-            RequestQueue objetoPeticion = Volley.newRequestQueue(ModificarContacto.this);
+            final RequestQueue objetoPeticion = Volley.newRequestQueue(ModificarContacto.this);
             StringRequest peticion = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onResponse(String response) {
                     try{
@@ -87,18 +90,22 @@ public class ModificarContacto extends AppCompatActivity {
                         String estado = objJSONResultado.getString("estado");
                         if(estado.equals("1")){
                             Toast.makeText(ModificarContacto.this, "Contacto Modificado con exito", Toast.LENGTH_SHORT).show();
+                            objetoPeticion.stop();
                         }else{
                             Toast.makeText(ModificarContacto.this, "Error: "+ estado, Toast.LENGTH_SHORT).show();
+                            objetoPeticion.stop();
                         }
-
+                        objetoPeticion.stop();
                     }catch (Exception e){
                         e.printStackTrace();
                     }
+                    objetoPeticion.stop();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(ModificarContacto.this, "Error: "+ error.getMessage(), Toast.LENGTH_SHORT).show();
+                    objetoPeticion.stop();
                 }
             }){
                 @Override
